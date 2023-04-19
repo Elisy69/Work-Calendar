@@ -29,11 +29,7 @@ function App() {
 
   const schedule = mySchedule.shift;
 
-  useEffect(() => {
-    console.log(dayRef.current);
-  }, [dayRef]);
-
-  useEffect(() => {}, [mySchedule]);
+  useEffect(() => {}, [dayRef]);
 
   function createNewSchedule(firstDay) {
     const day = currentDate + firstDay;
@@ -82,10 +78,13 @@ function App() {
 
   function scrollToId(dayId) {
     const map = getMap();
+    console.log(map);
+    console.log(dayId);
     const node = map.get(dayId);
+    console.log(node);
     node.scrollIntoView({
       behavior: "smooth",
-      block: "nearest",
+      block: "center",
       inline: "center",
     });
   }
@@ -103,7 +102,7 @@ function App() {
     max-w-4xl h-full max-h-[53rem] mt-10 pr-40
     flex-col relative"
     >
-      <div className="h-[6%] text-xl font-medium flex justify-evenly items-center pr-16 ">
+      <div className="grid grid-cols-7 grid-rows-1 h-[6%] text-3xl font-medium justify-items-center pr-24 pl-8 text-violet-300">
         <span>Mn</span>
         <span>Tue</span>
         <span>Wed</span>
@@ -113,7 +112,9 @@ function App() {
         <span>Sn</span>
       </div>
       <div
-        className={`h-[88%] rounded-2xl bg-gradient-to-r from-indigo-900 bg-violet-800 shadow-lg p-2 pr-10 overflow-scroll relative`}
+        className={`h-[88%] rounded-2xl bg-gradient-to-r from-violet-900 via-indigo-600 to-purple-900 shadow-lg p-2 pr-24 pl-8 relative ${
+          modal ? "overflow-clip" : "overflow-scroll"
+        }`}
       >
         <button
           onClick={() => {
@@ -126,10 +127,12 @@ function App() {
         {dates.map((month) => (
           <div className="flex-col" key={crypto.randomUUID()}>
             <div className="flex justify-center">
-              <span className="p-3 text-2xl">{format(month[0], "LLLL")}</span>
+              <span className="p-3 text-4xl text-violet-300">
+                {format(month[0], "LLLL")}
+              </span>
             </div>
             <ul
-              className="grid grid-cols-7 grid-rows-6"
+              className="grid grid-cols-7 justify-items-center gap-y-2"
               key={crypto.randomUUID()}
             >
               {month.map((day) => {
@@ -148,9 +151,9 @@ function App() {
                     ref={(node) => {
                       const map = getMap();
                       if (node) {
-                        map.set(node);
+                        map.set(getDayOfYear(day), node);
                       } else {
-                        map.delete();
+                        map.delete(getDayOfYear(day));
                       }
                     }}
                   />
@@ -159,7 +162,13 @@ function App() {
             </ul>
           </div>
         ))}
-        <Modal status={modal} onSelect={createNewSchedule}></Modal>
+        <Modal
+          status={modal}
+          onSelect={createNewSchedule}
+          changeStatus={() => {
+            setModal(false);
+          }}
+        ></Modal>
       </div>
 
       <div className="h-[6%] pr-16 text-sm font-medium flex justify-evenly items-center">

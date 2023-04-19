@@ -1,7 +1,8 @@
 import { format, getDayOfYear } from "date-fns";
+import { useState } from "react";
 const currentDate = getDayOfYear(new Date());
 
-function Modal({ status, onSelect }) {
+function Modal({ status, onSelect, changeStatus }) {
   return (
     <>
       <div
@@ -43,6 +44,7 @@ function Modal({ status, onSelect }) {
         </button>
       </div>
       <div
+        onClick={changeStatus}
         className={`absolute w-full h-full top-[0rem] left-[0rem] rounded-2xl backdrop-blur-3xl bg-black-500/30 ${
           status ? "block" : "hidden"
         }`}
