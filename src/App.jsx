@@ -8,7 +8,9 @@ import getDates from "./UtilityFunctions/getDateArray";
 
 const dates = getDates(new Date(2023, 0, 1), new Date(2023, 11, 31));
 const currentDate = getDayOfYear(new Date());
-const overallDays = dates.flat().length;
+const overallDays = dates.flat().map((day) => {
+  return getDayOfYear(day);
+});
 
 function App() {
   const isWorkdayRef = useRef(false);
@@ -20,14 +22,9 @@ function App() {
   });
   const [modal, setModal] = useState(false);
 
-  let count = 0;
   let count2 = 0;
-  let decrementCount = 0;
   let leftOverCount = 0;
-  let currentDay = mySchedule.firstDay;
   let currentDayForSchedule = mySchedule.firstDay;
-
-  const schedule = mySchedule.shift;
 
   useEffect(() => {}, [dayRef]);
 
@@ -37,41 +34,39 @@ function App() {
     setModal(false);
   }
 
-  function makeSchedule() {
-    if (currentDay - currentDayForSchedule === schedule) {
-      currentDayForSchedule = currentDay;
-      currentDay++;
+  function makeSchedule(day) {
+    if (day - currentDayForSchedule === mySchedule.shift) {
+      currentDayForSchedule = day;
       isWorkdayRef.current = !isWorkdayRef.current;
     } else {
+      console.log(`LEFTOVER`);
       leftOverCount++;
       if (leftOverCount < 2) {
+        console.log(`LEFTOVER 2`);
         isWorkdayRef.current = !isWorkdayRef.current;
       }
-      currentDay++;
     }
   }
 
-  function makeBackwardSchedule() {
-    let schedule2 = mySchedule.shift;
-    let leftOver = (currentDay - 1) % schedule;
-    if (leftOver > 0 && decrementCount < leftOver) {
-      decrementCount++;
-      isWorkdayRef.current = false;
+  function makeBackwardSchedule(day) {
+    let schedule2 = mySchedule.shift; // 4
+    let leftOver = mySchedule.firstDay % mySchedule.shift; // 1
+    if (leftOver > 0 && day < leftOver) {
+      isWorkdayRef.current = true;
     } else {
-      if (decrementCount <= schedule + leftOver) {
-        schedule2 = schedule + leftOver;
+      if (day <= mySchedule.shift + leftOver) {
+        schedule2 = mySchedule.shift + leftOver;
       } else {
-        schedule2 = schedule;
+        schedule2 = mySchedule.shift;
       }
-      if (decrementCount - count2 === schedule2) {
-        count2 = decrementCount;
-        decrementCount++;
+      if (day - count2 === schedule2) {
+        count2 = day;
+
         isWorkdayRef.current = !isWorkdayRef.current;
       } else {
-        if (decrementCount <= leftOver) {
-          isWorkdayRef.current = true;
+        if (day <= leftOver) {
+          isWorkdayRef.current = false;
         }
-        decrementCount++;
       }
     }
   }
@@ -120,7 +115,7 @@ function App() {
           onClick={() => {
             scrollToId(currentDate);
           }}
-          className="fixed bg-red-800 shadow-lg shadow-rose-800/50 w-20 h-7 rounded-lg hover:bg-rose-900 hover:shadow-lg hover:shadow-rose-900/50 ease-in duration-100"
+          className="z-50 fixed bg-red-800 shadow-lg shadow-rose-800/50 w-20 h-7 rounded-lg hover:bg-rose-900 hover:shadow-lg hover:shadow-rose-900/50 ease-in duration-100"
         >
           Return
         </button>
@@ -136,11 +131,12 @@ function App() {
               key={crypto.randomUUID()}
             >
               {month.map((day) => {
-                count++;
-                if (count < currentDay) {
-                  makeBackwardSchedule();
+                let currentDay = getDayOfYear(day);
+
+                if (currentDay < mySchedule.firstDay) {
+                  makeBackwardSchedule(currentDay);
                 } else {
-                  makeSchedule();
+                  makeSchedule(currentDay);
                 }
 
                 return (
