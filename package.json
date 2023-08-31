@@ -11,17 +11,26 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
     "date-fns": "^2.29.3",
+    "eslint-plugin-tailwindcss": "^3.13.0",
+    "immer": "^10.0.2",
+    "rc-virtual-list": "^3.10.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
+    "react-viewport-list": "^7.1.1",
+    "react-window": "^1.8.9",
     "tailwind-scrollbar-hide": "^1.1.7",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "virtual-window": "^1.0.20",
+    "zustand": "^4.4.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^3.1.0",
     "autoprefixer": "^10.4.14",
+    "eslint": "^8.47.0",
+    "eslint-plugin-react": "^7.33.2",
     "postcss": "^8.4.21",
     "tailwindcss": "^3.2.7",
     "vite": "^4.2.0"
