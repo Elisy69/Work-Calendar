@@ -1,20 +1,11 @@
 import React from "react";
-import Modal from "./Components/Modal";
-import SchedulePlanningPanel from "./Components/SchedulePlanningPanel";
-import CalendarWindow from "/src/Components/CalendarWindow";
+import SchedulePlanningPanel from "./сomponents/SchedulePlanningPanel";
+import CalendarWindow from "/src/сomponents/CalendarWindow";
 
 function App() {
-  function createNewSchedule() {}
   return (
-    <div className="w-full h-full max-w-2xl max-h-[53rem] mt-10 flex-col relative">
+    <div className="flex flex-col justify-start mt-4 sm:mt-0 sm:justify-center items-center w-full h-full relative">
       <CalendarWindow />
-      <Modal
-        status={false}
-        onSelect={createNewSchedule}
-        changeStatus={() => {
-          setModal(false);
-        }}
-      ></Modal>
       <SchedulePlanningPanel />
     </div>
   );

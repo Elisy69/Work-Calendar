@@ -1,4 +1,4 @@
-import { getDates } from "../UtilityFunctions/getDateArray";
+import { getDates } from "../utilityFunctions/getDateArray";
 
 const YEARS = [2022, 2023, 2024];
 
@@ -11,6 +11,7 @@ export const FIRST_DAY_OF_WORK = {
   yesterday: -1,
   today: 0,
   tomorrow: 1,
+  inTwoDays: 2,
 };
 
 export const CURRENT_DAY = new Date();

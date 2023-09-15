@@ -9,8 +9,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.14.7",
+    "@mui/x-date-pickers": "^6.12.1",
     "@reduxjs/toolkit": "^1.9.3",
     "date-fns": "^2.29.3",
+    "dayjs": "^1.11.9",
     "eslint-plugin-tailwindcss": "^3.13.0",
     "immer": "^10.0.2",
     "rc-virtual-list": "^3.10.5",
@@ -20,6 +25,7 @@
     "react-viewport-list": "^7.1.1",
     "react-window": "^1.8.9",
     "tailwind-scrollbar-hide": "^1.1.7",
+    "usehooks-ts": "^2.9.1",
     "uuid": "^9.0.0",
     "virtual-window": "^1.0.20",
     "zustand": "^4.4.1"

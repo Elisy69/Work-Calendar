@@ -1,31 +1,52 @@
 import { format } from "date-fns";
 
-export function getAllDaysAccordingToSchedule(
-  mySchedule,
+export function getAllDays(
+  firstDay,
+  workDays,
+  dayOffs,
   currentDay,
   overallDays
 ) {
-  console.log("getalldays working");
-  let counter = 1;
   const isToday = (day) =>
     format(currentDay, "MM/dd/yyy") === format(day.dateObj, "MM/dd/yyyy");
   const todaysIndex = overallDays.findIndex(isToday);
-  const firstChunk = overallDays.slice(0, todaysIndex + mySchedule.firstDay);
+  const firstChunk = overallDays.slice(0, todaysIndex + firstDay);
   firstChunk.reverse();
-  const secondChunk = overallDays.slice(todaysIndex + mySchedule.firstDay);
-  const firstChunkWithWorkDays = firstChunk.map((day) => {
-    counter === mySchedule.shift * 2 + 1 ? (counter = 1) : "";
-    let isWorkDay = counter > mySchedule.shift ? true : false;
-    counter++;
-    return { dateObj: day.dateObj, isWorkDay: isWorkDay };
-  });
-  firstChunkWithWorkDays.reverse();
-  counter = 1;
-  const secondChunkWithWorkDays = secondChunk.map((day) => {
-    counter === mySchedule.shift * 2 + 1 ? (counter = 1) : "";
-    let isWorkDay = counter > mySchedule.shift ? false : true;
-    counter++;
-    return { dateObj: day.dateObj, isWorkDay: isWorkDay };
-  });
-  return firstChunkWithWorkDays.concat(secondChunkWithWorkDays);
+  const secondChunk = overallDays.slice(todaysIndex + firstDay);
+  if (workDays === dayOffs) {
+    let counter = 0;
+    const firstChunkWithWorkDays = firstChunk.map((day) => {
+      counter === workDays * 2 ? (counter = 0) : "";
+      let isWorkDay = counter >= workDays ? true : false;
+      counter++;
+      return { dateObj: day.dateObj, isWorkDay: isWorkDay };
+    });
+    firstChunkWithWorkDays.reverse();
+    counter = 0;
+    const secondChunkWithWorkDays = secondChunk.map((day) => {
+      counter === workDays * 2 ? (counter = 0) : "";
+      let isWorkDay = counter >= workDays ? false : true;
+      counter++;
+      return { dateObj: day.dateObj, isWorkDay: isWorkDay };
+    });
+    return firstChunkWithWorkDays.concat(secondChunkWithWorkDays);
+  } else {
+    let counter = workDays;
+    const firstChunkWithWorkDays = firstChunk.map((day) => {
+      counter === workDays + dayOffs ? (counter = 0) : "";
+      let isWorkDay = counter >= workDays ? false : true;
+      counter++;
+      return { dateObj: day.dateObj, isWorkDay: isWorkDay };
+    });
+    firstChunkWithWorkDays.reverse();
+    counter = 0;
+    const secondChunkWithWorkDays = secondChunk.map((day) => {
+      counter === workDays + dayOffs ? (counter = 0) : "";
+      let isWorkDay = counter >= workDays ? false : true;
+
+      counter++;
+      return { dateObj: day.dateObj, isWorkDay: isWorkDay };
+    });
+    return firstChunkWithWorkDays.concat(secondChunkWithWorkDays);
+  }
 }

@@ -1,7 +1,7 @@
 import React, { memo } from "react";
-import Day from "/src/Components/Day";
-import MonthTitle from "/src/Components/MonthTitle.jsx";
-import DayOfWeekPanel from "/src/Components/dayOfWeekPanel";
+import Day from "../day/Day";
+import MonthTitle from "./MonthTitle.jsx";
+import DayOfWeekPanel from "./dayOfWeekPanel";
 
 const Month = memo(function Month({ currentMonth, innerRef }) {
   return (

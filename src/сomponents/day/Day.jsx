@@ -1,6 +1,6 @@
 import format from "date-fns/format";
 import React, { memo, useEffect, useState } from "react";
-import { useDays } from "../store_zustand/store";
+import { useDays } from "../../store_zustand/store";
 
 function convertFromISOString(string) {
   const dateObj = new Date(string);
@@ -66,20 +66,20 @@ const Day = memo(function Day({ day }) {
 
   useEffect(() => {
     setWorkDay(daysToCompare[dayIndex].isWorkDay);
-  }, []);
+  }, [daysToCompare]);
 
   return (
     <li
       onClick={handleClick()}
       className={`${
         workDay
-          ? "bg-pink-900 transition duration-100 ease-in-out hover:bg-red-900 hover:scale-110 "
-          : "transition duration-100 ease-in-out hover:shadow-2xl "
+          ? "bg-blue-900 transition duration-100 ease-in-out hover:scale-110 text-blue-200"
+          : "transition duration-100 ease-in-out hover:shadow-2xl hover:drop-shadow-xl text-stone-600"
       } ${
         isFirstDay(day) ? `${getWeekDay(day)}` : ""
-      } flex justify-center items-center rounded-full w-16 h-16 cursor-pointer`}
+      } flex justify-center items-center rounded-full sm:w-16 sm:h-16 w-10 h-10 cursor-pointer`}
     >
-      <span className="font-bold text-2xl text-indigo-200 ">
+      <span className="font-bold sm:text-2xl text-lg  ">
         {format(day, "d")}
       </span>
     </li>
