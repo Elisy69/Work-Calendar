@@ -1,4 +1,4 @@
-import getDates from "/src/utilityFunctions/getDateArray.js";
+import { getDates } from "/src/utilityFunctions/getDateArray.js";
 
 const YEARS = [2022, 2023, 2024];
 
