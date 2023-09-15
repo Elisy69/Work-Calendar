@@ -1,4 +1,4 @@
-export function getDates(startDate, endDate) {
+export default function getDates(startDate, endDate) {
   const dates = [];
   let currentDate = startDate;
   const addDays = function (days) {
