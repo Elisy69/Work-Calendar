@@ -6,7 +6,7 @@ import {
   FIRST_DAY_OF_WORK,
   OVERALL_DAYS,
 } from "../constants/constants";
-import { getAllDays } from "../utilityFunctions/getAllDaysAccordingToSchedule";
+import { getAllDays } from "/src/UtilityFunctions/getAllDaysAccordingToSchedule";
 
 export const useSchedule = create(
   immer(
