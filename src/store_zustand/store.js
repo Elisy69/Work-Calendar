@@ -55,7 +55,7 @@ export const useDays = create(
             );
           }),
         updateCustomSchedule: (customDate) =>
-          set((state) => {
+          set((state) => { 
             state.days = getAllDays(
               useSchedule.getState().mySchedule.firstDay,
               useSchedule.getState().mySchedule.workDays,

@@ -69,7 +69,6 @@ function ModalForSchedule({ open, handleClose, shift }) {
           height: isDesktop ? 200 : 300,
           width: isDesktop ? 450 : 250,
           backgroundColor: "#ececec",
-
           border: "1px solid #000",
           borderRadius: "20px",
           boxShadow: 24,
